@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from "prop-types"
 
 import AxisYLines from "./AxisYLines";
 import AxisXLines from "./AxisXLines"
 import LineGraph from "./LineGraph";
 import {GLOBAL_WIDTH, GLOBAL_HEIGHT} from "../constants/common"
-import {getMouseXPosition, getNearestValue} from "../utils"
+import {convertMouseXPosition, getNearestValue} from "../utils"
 
 export default class Graph extends Component {
     constructor(){
@@ -31,9 +32,21 @@ export default class Graph extends Component {
         const {data} = this.props
             , { left } = e.target.getBoundingClientRect()
             , xMouse = e.clientX - left
-            , mousePosition = getMouseXPosition(xMouse, (GLOBAL_WIDTH + left))
+            , mousePosition = convertMouseXPosition(xMouse, (GLOBAL_WIDTH + left))
             , nearestValue = getNearestValue(mousePosition, data, GLOBAL_HEIGHT);
 
         !!nearestValue && this.setState({nearestValue: nearestValue})
     }
 }
+
+Graph.defaultProps = {
+    width: '200px',
+    height: '200px',
+    data: []
+};
+
+Graph.PropTypes = {
+    width: PropTypes.string,
+    height: PropTypes.string,
+    data: PropTypes.array
+};

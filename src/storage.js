@@ -1,5 +1,5 @@
 import {DATE_START, DATA_FILL_LENGTH, DOTS_MIN_ON_Y_AXIS, DOTS_MAX_COUNT_ON_Y_AXIS} from "./constants/common"
-import {round, xTSMult} from "./utils"
+import {round, tsMulriplierForX} from "./utils"
 
 export const data = fillData();
 
@@ -8,7 +8,7 @@ function fillData(){
         , ts = DATE_START;
 
     for (let i = 0; i < DATA_FILL_LENGTH; i++){
-        ts = i === 0 ? ts : ts + xTSMult();
+        ts = i === 0 ? ts : ts + tsMulriplierForX();
 
         data.push({
             id: i,

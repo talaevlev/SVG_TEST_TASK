@@ -10,6 +10,5 @@ export const GRAPH_EXTEND_WIDTH = GLOBAL_WIDTH / 4;
 export const GRAPH_EXTEND_HEIGHT = GLOBAL_HEIGHT / 4;
 export const MULTIPLY_Y = GLOBAL_HEIGHT / DOTS_ON_AXIS_Y_COUNT;
 
-export const GRAPH_COLOR = '#6A9EF7';
-export const AXIS_TEXT_COLOR = '#ACACAC';
-export const RISE_INDICATOR_COLOR = {rise: '#19C519', fall: '#DB0909'};
+export const GRAPH_COLOR = 'blue';
+export const AXIS_TEXT_COLOR = 'grey';

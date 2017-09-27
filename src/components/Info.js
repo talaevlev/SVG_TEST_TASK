@@ -1,24 +1,19 @@
 import React, { Component } from 'react'
+import PropTypes from "prop-types"
+
 import {toDate, transformDotToComa} from "../utils"
 import RiseIndicator from "./RiseIndicator";
 import Text from "./Text";
 import {AXIS_TEXT_COLOR} from "../constants/common";
 
-const COORDS_TEXT_DATA = {x:20, y: 20};
-const COORDS_TEXT_VALUE = {x:20, y: 40};
-const COORDS_INDICATOR = {x:70, y:31};
-const BLOCK_STYLE = {x: 10, rx: 6, ty: 6, width: 120, height: 50};
-const SVG_STYLE = {width: 210, height: 60};
-const SVG_WIDTH_CORRECTOR = 60;
-
 export default class Info extends Component {
     render(){
-        const {coords, value} = this.props,
+        const {coords, value, coordsTextData, coordsTextValue, coordsIndicator, blockCoords,
+                liftToUpInfoBlockConstant} = this.props,
               {valueT, valueY, rise, howRise} = value,
               date = toDate(valueT);
-
         return(
-            <svg x={coords.x} y={coords.y - SVG_WIDTH_CORRECTOR} {...SVG_STYLE}>
+            <svg x={coords.x} y={coords.y - liftToUpInfoBlockConstant} className={'svg-info'}>
 
                 <defs>
                     <filter id='shadow'>
@@ -26,18 +21,42 @@ export default class Info extends Component {
                     </filter>
                 </defs>
 
-                <g>
-                    <rect {...BLOCK_STYLE} style={{filter:'url(#shadow)'}} fill='white'/>
-                    <Text coords={COORDS_TEXT_DATA} fill={AXIS_TEXT_COLOR}>
-                        {date}
-                    </Text>
-                    <Text coords={COORDS_TEXT_VALUE}>
-                        {`$ ${transformDotToComa(valueY + '')}`}
-                    </Text>
-                    <RiseIndicator coords={COORDS_INDICATOR} rise={rise} howRise={howRise}/>
-                </g>
+                <rect {...blockCoords}/>
+                <Text coords={coordsTextData} fill={AXIS_TEXT_COLOR}>
+                    {date}
+                </Text>
+                <Text coords={coordsTextValue}>
+                    {`$ ${transformDotToComa(valueY + '')}`}
+                </Text>
+                <RiseIndicator coords={coordsIndicator} rise={rise} howRise={howRise}/>
             </svg>
         )
     }
-
 }
+
+Info.defaultProps = {
+    coordsTextData: {x:20, y: 20},
+    coordsTextValue: {x:20, y: 40},
+    coordsIndicator: {x:70, y:31},
+    blockCoords: {x: 10},
+    liftToUpInfoBlockConstant: 60,
+    coords: {x: 0, y: 0},
+    value: {},
+    valueT: 0,
+    valueY: 'None',
+    rise: false,
+    howRise: 0
+};
+
+Info.PropTypes = {
+    coordsTextData: PropTypes.object,
+    coordsTextValue: PropTypes.object,
+    coordsIndicator: PropTypes.object,
+    blockCoords: PropTypes.object,
+    coords: PropTypes.object,
+    value: PropTypes.object,
+    liftToUpInfoBlockConstant: PropTypes.number,
+    valueT: PropTypes.number,
+    rise: PropTypes.bool,
+    howRise: PropTypes.number
+};

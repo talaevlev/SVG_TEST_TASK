@@ -8,7 +8,7 @@ import {
 } from "./constants/common"
 import {data} from "./storage"
 
-export function getCoordForYLines(coord, height, width){
+export function convertCoordForYLines(coord, height, width){
     return {
         x1: 20,
         x2: width,
@@ -17,7 +17,7 @@ export function getCoordForYLines(coord, height, width){
     }
 }
 
-export function getCoordForYText(coord, height){
+export function convertCoordForYText(coord, height){
     return {
         x: 0,
         y: getY(coord, height)
@@ -31,7 +31,7 @@ export function getCoordForXText(index, width, count){
     }
 }
 
-export function getCoordsFoGraphLine(data, height){
+export function getCoordsForGraphLine(data, height){
     let coords = '';
 
     data.forEach(item => {
@@ -41,7 +41,7 @@ export function getCoordsFoGraphLine(data, height){
     return coords;
 }
 
-export function getMouseXPosition(pos, width){
+export function convertMouseXPosition(pos, width){
     return Math.round(pos / (width / DATA_FILL_LENGTH))
 }
 
@@ -68,7 +68,7 @@ export function getY(y, height){
 }
 
 export function getX(ts){
-    return Math.round((ts - DATE_START)/xTSMult() * (GLOBAL_WIDTH / data.length))
+    return Math.round((ts - DATE_START)/tsMulriplierForX() * (GLOBAL_WIDTH / data.length))
 }
 
 export function toDate(ts){
@@ -81,7 +81,7 @@ export function round(number){
     return Math.round(number * 100) / 100
 }
 
-export function xTSMult(){
+export function tsMulriplierForX(){
     return Math.round((DATE_END - DATE_START) / DATA_FILL_LENGTH);
 }
 
@@ -94,13 +94,13 @@ export function transformDotToComa(str){
 }
 
 function _getX(coord, width, count){
-    return coord * xMult(width, count)
+    return coord * xMultiplier(width, count)
 }
 
-function xMult(width, count){
+function xMultiplier(width, count){
     return Math.round(width / count);
 }
 
 function getMouseTsValue(mousePosition){
-    return Math.round(xTSMult()* mousePosition + DATE_START)
+    return Math.round(tsMulriplierForX()* mousePosition + DATE_START)
 }

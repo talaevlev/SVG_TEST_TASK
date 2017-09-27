@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types"
 
 import Text from "./Text";
 import {transformDotToComa} from "../utils";
-import {RISE_INDICATOR_COLOR} from "../constants/common"
-
-const POINTS = {rise: '5,3 0,9 10,9', fall: '5,8 0,4 10,4'};
-const COORDS_TEXT = {x: 12, y: 9};
 
 export default class RiseIndicator extends Component {
     render(){
-        const {rise, coords, howRise} = this.props,
-              color = rise ? RISE_INDICATOR_COLOR.rise : RISE_INDICATOR_COLOR.fall,
-              points = rise ? POINTS.rise : POINTS.fall;
+        const {rise, coords, howRise, points, textCoords} = this.props,
+              pointsCoords = rise ? points.rise : points.fall;
 
         return(
             <svg x={coords.x} y={coords.y}>
-                {rise !== null && <polygon points={points} fill={color}/>}
+                {rise !== null && <polygon points={pointsCoords}
+                                           className={`rise-indicator-${rise ? 'green' : 'red'}`}/>}
                 {rise !== null && (
-                    <Text coords={COORDS_TEXT} fill={color}>
+                    <Text coords={textCoords} fill={`${rise ? 'green' : 'red'}`}>
                         {transformDotToComa(howRise + '')}
                     </Text>
                     )
@@ -27,3 +24,19 @@ export default class RiseIndicator extends Component {
     }
 
 }
+
+RiseIndicator.defaultProps = {
+    rise: false,
+    coords: {x: 0, y: 0},
+    howRise: 0,
+    points: {rise: '5,3 0,9 10,9', fall: '5,8 0,4 10,4'},
+    textCoords: {x: 12, y: 9}
+};
+
+RiseIndicator.PropTypes = {
+    rise: PropTypes.bool,
+    coords: PropTypes.object,
+    points: PropTypes.object,
+    textCoords: PropTypes.object,
+    howRise: PropTypes.number
+};

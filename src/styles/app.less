@@ -1,0 +1,95 @@
+@greyColor: #ACACAC;
+@blueColor: #5691F7;
+@greenColor: #19C519;
+@redColor: #DB0909;
+
+body {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.svg {
+    &-graph-line {
+        &-transparent {
+            fill: transparent;
+            & > polyline {
+                fill: transparent;
+                stroke: #5691F7;
+                stroke-width: 1.5;
+            }
+        }
+    }
+    &-info{
+       width: 210px;
+       height: 60px;
+        & > rect {
+            width: 120px;
+            height: 50px;
+            ty: 6;
+            rx: 6;
+            filter:url('#shadow');
+            fill: white;
+        }
+    }
+}
+
+.data-view{
+    fill: 'transparent';
+    & > circle {
+        fill: @blueColor;
+        stroke: white;
+        stroke-width: 2;
+        r: 4;
+    }
+    &> line {
+        stroke-dasharray: 5, 5;
+        stroke: @greyColor;
+        stroke-width: 0.5;
+    }
+}
+
+.axis-y-lines{
+    stroke: lightgrey;
+    stroke-width: 1;
+}
+
+.rise-indicator{
+    &-green{
+        fill: @greenColor;
+    }
+    &-red {
+        fill: @redColor;
+    }
+}
+
+.text {
+    &-grey {
+        fill: @greyColor;
+    }
+
+    &-black {
+        fill: black;
+    }
+
+    &-green {
+        fill: @greenColor;
+    }
+
+    &-red {
+        fill: @redColor;
+    }
+}
+
+.font-size{
+    &-11{
+        font-size: 11px;
+    }
+    &-12{
+        font-size: 12px;
+    }
+}
+
+.Helvetica {
+    font-family: 'Helvetica';
+}
+

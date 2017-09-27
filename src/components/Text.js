@@ -5,7 +5,7 @@ export default class Text extends Component {
         const {children, coords, fontFamily, fill, fontSize, textAnchor} = this.props;
 
         return (
-            <text {...coords} fill={fill} fontFamily={fontFamily} textAnchor={textAnchor} fontSize={fontSize}>
+            <text {...coords} className={`text-${fill} ${fontFamily} textAnchor-${textAnchor} font-size-${fontSize}`}>
                 {children}
             </text>
         )
